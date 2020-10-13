@@ -1,0 +1,14 @@
+# package directories
+node_modules
+build/
+
+# Package-lock
+package-lock.json
+
+# yarn log
+yarn-error.log
+
+# others files undesired
+*.js.map
+
+.DS_Store
