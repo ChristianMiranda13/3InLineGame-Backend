@@ -12,10 +12,20 @@
     "lint"
   ],
   "dependencies": {
+    "await-to-js": "2.1.1",
+    "axios": "0.19.2",
+    "body-parser": "1.19.0",
+    "cors": "2.8.5",
+    "express": "4.17.1",
+    "express-boom": "3.0.0",
+    "moment": "2.24.0",
     "mongoose": "5.7.7",
     "typescript": "3.7.4"
   },
   "devDependencies": {
+    "@types/axios": "0.14.0",
+    "@types/express-boom": "3.0.0",
+    "@types/moment": "2.13.0",
     "@types/mongoose": "5.5.28",
     "@types/node": "12.12.14",
     "pre-commit": "1.2.2",
