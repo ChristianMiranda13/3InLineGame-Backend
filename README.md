@@ -36,5 +36,4 @@ npm i
 ```bash
 npm run start-dev
 ```
-
-https://twitter.com/1992CHRISTIAN13/status/1315870188684926976?s=20
+tweet: https://twitter.com/1992CHRISTIAN13/status/1315870188684926976?s=20

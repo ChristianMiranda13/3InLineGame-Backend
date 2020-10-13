@@ -8,7 +8,7 @@ const saveGame = (game: IGame) => {
       return reject('Missing game data');
     }
 
-    game.createdAt = moment(Date.now()).format('DD/MM/YYYY HH:mm:ss');
+    game.createdAt = moment(Date.now()).format('YYYY/MM/DD hh:mm:ss');
     const newGame = new Game(game);
     const [error, gameCreated] = await to(newGame.save());
     if (error) {
@@ -29,7 +29,7 @@ const updateGame = (gameId: string, bodyGame: IGame): Promise<IGame> => {
       return reject('Missing data');
     }
 
-    bodyGame.updateAt = moment(Date.now()).format('DD/MM/YYYY HH:mm:ss');
+    bodyGame.updateAt = moment(Date.now()).format('YYYY/MM/DD hh:mm:ss');
 
     const [err, res] = await to<IGameModel>(Game.findByIdAndUpdate(gameId, bodyGame, { new: true }).then());
     if (err) {
