@@ -36,4 +36,8 @@ npm i
 ```bash
 npm run start-dev
 ```
+
+NOTICE: to use the game also you need to run frontEnd
+frontend url: https://github.com/ChristianMiranda13/3InLineGame-Frontend
+
 tweet: https://twitter.com/1992CHRISTIAN13/status/1315870188684926976?s=20
