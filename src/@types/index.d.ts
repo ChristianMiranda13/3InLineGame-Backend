@@ -7,6 +7,9 @@ declare global {
     currentTurn: string;
     status: string;
     board: string[];
+    winner?: string;
+    updateAt?: string;
+    createdAt?: string;
   }
 
   interface IGameModel extends IGame, Document {

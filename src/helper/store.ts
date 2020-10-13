@@ -1,4 +1,5 @@
 import to from 'await-to-js';
+import moment from 'moment';
 import Game from '../models/game';
 
 const saveGame = (game: IGame) => {
@@ -6,6 +7,8 @@ const saveGame = (game: IGame) => {
     if (!game || !game.currentTurn || !game.status || !game.board) {
       return reject('Missing game data');
     }
+
+    game.createdAt = moment(Date.now()).format('DD/MM/YYYY HH:mm:ss');
     const newGame = new Game(game);
     const [error, gameCreated] = await to(newGame.save());
     if (error) {
@@ -26,6 +29,8 @@ const updateGame = (gameId: string, bodyGame: IGame): Promise<IGame> => {
       return reject('Missing data');
     }
 
+    bodyGame.updateAt = moment(Date.now()).format('DD/MM/YYYY HH:mm:ss');
+
     const [err, res] = await to<IGameModel>(Game.findByIdAndUpdate(gameId, bodyGame, { new: true }).then());
     if (err) {
       return reject(err);
@@ -33,6 +38,10 @@ const updateGame = (gameId: string, bodyGame: IGame): Promise<IGame> => {
 
     return resolve(res ? res.sanitize() : res);
   });
+};
+
+const sanitizeResponse = (data: IGameModel[]) => {
+  return data.map((game) => game.sanitize());
 };
 
 const getGames = (): Promise<IGame[] | IGame> => {
@@ -44,7 +53,8 @@ const getGames = (): Promise<IGame[] | IGame> => {
     }
 
     if (res.length) {
-      return resolve(res);
+      const response = sanitizeResponse(res);
+      return resolve(response);
     }
 
     return resolve(res);

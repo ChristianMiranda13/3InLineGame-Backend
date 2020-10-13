@@ -18,6 +18,19 @@ const game = new Schema({
     type: [String],
     required: true,
   },
+  winner: {
+    type: String,
+    required: false,
+  },
+  createdAt: {
+    type: Date,
+    default: Date,
+    required: true,
+  },
+  updateAt: {
+    type: Date,
+    required: false,
+  },
 });
 
 game.set('toJSON', { getters: true, virtuals: false });

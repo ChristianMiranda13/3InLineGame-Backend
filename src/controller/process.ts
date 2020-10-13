@@ -1,4 +1,5 @@
 import to from 'await-to-js';
+import constants from '../config';
 import store from '../helper/store';
 
 const getGame = async (req, res, next) => {
@@ -54,6 +55,16 @@ const updateGame = async (req, res, next) => {
     return res.boom.badRequest('This game is over.');
   }
 
+  const winner = checkForWinner(req.body) as any;
+
+  if (winner) {
+    body.winner = body.currentTurn;
+    body.status = 'Won';
+  } else if (checkForDraw(body)) {
+    body.status = 'Draw';
+    body.winner = 'none';
+  }
+
   const [err, record] = await to(store.updateGame(req.params.id, body));
   if (err) {
     return res.boom.badImplementation(err, { message: 'Error updating game.' });
@@ -62,6 +73,33 @@ const updateGame = async (req, res, next) => {
   res.locals.data = record;
   next();
   return;
+};
+
+const checkForDraw = (game: IGame) => {
+  const board = game.board;
+  let isDraw = true;
+  for (const movement of board) {
+    // tslint:disable-next-line: no-unused-expression
+    !movement ? isDraw = false : 'none';
+  }
+
+  return isDraw;
+};
+
+const checkForWinner = (game: IGame) => {
+  const currentTurn = game.currentTurn;
+  const board = game.board;
+  return constants.WINNING_COMBOS.find((combo) => {
+    if (board[combo[0]] !== '' &&
+      board[combo[1]] !== '' &&
+      board[combo[2]] !== '' &&
+      board[combo[0]] === board[combo[1]] &&
+      board[combo[1]] === board[combo[2]]) {
+      return currentTurn;
+    } else {
+      return false;
+    }
+  });
 };
 
 export { getGame, getGames, postGame, updateGame };
