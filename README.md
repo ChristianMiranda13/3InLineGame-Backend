@@ -1,6 +1,6 @@
 # 3 In Line Game - Backend
 
-This is a game known in Colombia how "Triki".
+This is a game known in Colombia as "Triki".
 
 ## Overview
 
